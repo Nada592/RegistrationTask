@@ -1,0 +1,101 @@
+package basicweb;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+public class Regestration {
+
+    public static void main(String[] args) {
+        // Set up WebDriver
+        System.setProperty("webdriver.chrome.driver", "/path/to/your/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        try {
+            // Test data for registration
+            String[][] registrationData = {
+                    {"John", "Doe", "john.doe@example.com", "password1"},
+                    {"Jane", "Smith", "jane.smith@example.com", "password2"}
+            };
+
+            // Test data for login
+            String[][] loginData = {
+                    {"john.doe@example.com", "password1"},
+                    {"jane.smith@example.com", "password2"}
+            };
+
+            // Perform registration tests
+            for (String[] data : registrationData) {
+                performRegistration(driver, data[0], data[1], data[2], data[3]);
+            }
+
+            // Perform login tests
+            for (String[] data : loginData) {
+                performLogin(driver, data[0], data[1]);
+            }
+
+        } finally {
+            // Close the browser
+            if (driver != null) {
+                driver.quit();
+            }
+        }
+    }
+
+    public static void performRegistration(WebDriver driver, String firstname, String lastname, String email, String password) {
+        driver.get("https://demo.nopcommerce.com/");
+
+        // Click on Register link
+        driver.findElement(By.linkText("Register")).click();
+
+        // Fill registration form
+        driver.findElement(By.id("FirstName")).sendKeys(firstname);
+        driver.findElement(By.id("LastName")).sendKeys(lastname);
+        driver.findElement(By.id("Email")).sendKeys(email);
+        driver.findElement(By.id("Password")).sendKeys(password);
+        driver.findElement(By.id("ConfirmPassword")).sendKeys(password);
+
+        // Click Register button
+        driver.findElement(By.id("register-button")).click();
+
+        // Wait for registration success message
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("result")));
+
+        // Assert registration success
+        if (successMessage.getText().contains("Your registration completed")) {
+            System.out.println("Registration successful for: " + email);
+        } else {
+            System.out.println("Registration failed for: " + email);
+        }
+    }
+
+    public static void performLogin(WebDriver driver, String email, String password) {
+        driver.get("https://demo.nopcommerce.com/");
+
+        // Click on Login link
+        driver.findElement(By.linkText("Log in")).click();
+
+        // Fill login form
+        driver.findElement(By.id("Email")).sendKeys(email);
+        driver.findElement(By.id("Password")).sendKeys(password);
+
+        // Click Login button
+        driver.findElement(By.cssSelector("[value='Log in']")).click();
+
+        // Wait for login success message or logout link
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement logoutLink = wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Log out")));
+
+        // Assert login success
+        if (logoutLink.isDisplayed()) {
+            System.out.println("Login successful for: " + email);
+        } else {
+            System.out.println("Login failed for: " + email);
+        }
+    }
+}

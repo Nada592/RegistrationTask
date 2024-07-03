@@ -1,0 +1,35 @@
+package basicweb;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class Regestration {
+
+	public static void main(String[] args) {
+		
+		
+		ChromeDriver driver= new ChromeDriver();
+		
+		driver.get("https://demo.nopcommerce.com/");
+		
+		driver.findElement(By.xpath("/html/body/div[6]/div[1]/div[1]/div[2]/div[1]/ul/li[1]/a")).click();
+		
+		driver.findElement(By.xpath("//*[@id=\"gender-female\"]")).click();
+	
+		WebElement firstname =driver.findElement(By.xpath("//*[@id=\"FirstName\"]"));
+		firstname.sendKeys("Nada");
+	
+		WebElement lastname =driver.findElement(By.xpath("//*[@id=\"LastName\"]"));
+		lastname.sendKeys("Emad");
+		
+		WebElement dropdownElement = driver.findElement(By.id("//*[@id=\"main\"]/div/div/div/div[2]/form/div[1]/div[2]/div[4]/div/select[1]"));
+		
+		WebElement signupbutton =driver.findElement(By.xpath("//*[@id=\"signInModal\"]/div/div/div[3]/button[2]"));
+		
+		signupbutton.click();
+	
+
+	}
+
+}

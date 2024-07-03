@@ -1,0 +1,82 @@
+package basicweb;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Regestration {
+
+    public static void main(String[] args) {
+
+        // Set up WebDriver
+        System.setProperty("webdriver.chrome.driver", "/path/to/your/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        try {
+            driver.get("https://demo.nopcommerce.com/");
+
+            // Click on Register link
+            driver.findElement(By.xpath("/html/body/div[6]/div[1]/div[1]/div[2]/div[1]/ul/li[1]/a")).click();
+
+            // Select gender (female in this case)
+            driver.findElement(By.id("gender-female")).click();
+
+            // Fill first name
+            WebElement firstName = driver.findElement(By.id("FirstName"));
+            firstName.sendKeys("Nada");
+
+            // Fill last name
+            WebElement lastName = driver.findElement(By.id("LastName"));
+            lastName.sendKeys("Emad");
+
+            // Select Date of Birth - Day
+            WebElement dayDropdown = driver.findElement(By.xpath("//*[@id=\"DateOfBirthDay\"]"));
+            Select daySelect = new Select(dayDropdown);
+            daySelect.selectByValue("12");
+
+            // Select Date of Birth - Month
+            WebElement monthDropdown = driver.findElement(By.xpath("//*[@id=\"DateOfBirthMonth\"]"));
+            Select monthSelect = new Select(monthDropdown);
+            monthSelect.selectByValue("8");
+
+            // Select Date of Birth - Year
+            WebElement yearDropdown = driver.findElement(By.xpath("//*[@id=\"DateOfBirthYear\"]"));
+            Select yearSelect = new Select(yearDropdown);
+            yearSelect.selectByValue("1997");
+
+            // Fill email
+            WebElement email = driver.findElement(By.id("Email"));
+            email.sendKeys("Nadaemadtahoun@gmail.com");
+
+            // Fill company
+            WebElement company = driver.findElement(By.id("Company"));
+            company.sendKeys("SomeCompany");
+
+            // Fill password and confirm password
+            WebElement password = driver.findElement(By.id("Password"));
+            password.sendKeys("Nad123@123");
+
+            WebElement confirmPassword = driver.findElement(By.id("ConfirmPassword"));
+            confirmPassword.sendKeys("Nad123@123");
+
+            // Click on Register button
+            WebElement registerButton = driver.findElement(By.id("register-button"));
+            registerButton.click();
+
+            // Wait for registration success message or handle further steps as needed
+
+        } finally {
+            // Close the browser
+            if (driver != null) {
+                driver.quit();
+            }
+        }
+    }
+}

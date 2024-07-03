@@ -1,0 +1,58 @@
+package basicweb;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class Regestration {
+
+	public static void main(String[] args) {
+		
+		
+		ChromeDriver driver= new ChromeDriver();
+		
+		driver.get("https://demo.nopcommerce.com/");
+		
+		driver.findElement(By.xpath("/html/body/div[6]/div[1]/div[1]/div[2]/div[1]/ul/li[1]/a")).click();
+		
+		driver.findElement(By.xpath("//*[@id=\"gender-female\"]")).click();
+	
+		WebElement firstname =driver.findElement(By.xpath("//*[@id=\"FirstName\"]"));
+		firstname.sendKeys("Nada");
+	
+		WebElement lastname =driver.findElement(By.xpath("//*[@id=\"LastName\"]"));
+		lastname.sendKeys("Emad");
+		
+		WebElement Day = driver.findElement(By.id("//*[@id=\"main\"]/div/div/div/div[2]/form/div[1]/div[2]/div[4]/div/select[1]"));
+		Select dropdownDay = new Select(Day);
+		dropdownDay.selectByValue("12");
+		
+		WebElement Month = driver.findElement(By.id("//*[@id=\"main\"]/div/div/div/div[2]/form/div[1]/div[2]/div[4]/div/select[2]"));
+		Select dropdownMonth = new Select(Month);
+		dropdownMonth.selectByValue("8");
+		
+		WebElement Year = driver.findElement(By.id("//*[@id=\"main\"]/div/div/div/div[2]/form/div[1]/div[2]/div[4]/div/select[3]"));
+		Select dropdownYear = new Select(Year);
+		dropdownYear.selectByValue("1997");
+		
+		WebElement email =driver.findElement(By.xpath("//*[@id=\"Email\"]"));
+		email.sendKeys("Nadaemadtahoun@gmail.com");
+		
+		WebElement company =driver.findElement(By.xpath("//*[@id=\"Company\"]"));
+		company.sendKeys("Nadaemadtahoun@gmail.com");
+		
+		WebElement password =driver.findElement(By.xpath("//*[@id=\"Password\"]"));
+		password.sendKeys("Nad123@123");
+		
+		WebElement confirmPassword =driver.findElement(By.xpath("//*[@id=\"ConfirmPassword\"]"));
+		confirmPassword.sendKeys("Nad123@123");
+		
+		WebElement registerButton =driver.findElement(By.xpath("//*[@id=\"register-button\"]"));
+		
+		registerButton.click();
+	
+
+	}
+
+}
