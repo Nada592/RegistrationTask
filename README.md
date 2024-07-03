@@ -1,4 +1,4 @@
-### Automation Task
+### Registration Task
 This repository contains detailed test cases for the register
 ## Tools
 * Eclipse
