@@ -16,10 +16,6 @@ public class Regestration {
 
         driver.findElement(By.xpath("//a[text()='Register']")).click();
 
-        // Select gender (assuming it's already selected in your case)
-        // WebElement genderFemale = driver.findElement(By.id("gender-female"));
-        // genderFemale.click();
-
         WebElement firstName = driver.findElement(By.id("FirstName"));
         firstName.sendKeys("Nada");
 
